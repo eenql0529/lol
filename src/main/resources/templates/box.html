@@ -10,9 +10,7 @@
 
 </head>
 <style>
-    p{
-        margin: 0 auto;
-    }
+
     header{
         background-color: #041022;
     }
@@ -31,6 +29,7 @@
         font-size: 30px;
     font-weight: 600;
     color: white;
+    margin-left: 10px;
     }
     .header-nav{
         display: flex;
@@ -70,9 +69,59 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: inset 0px 0px 125px 130px #00040ed1;
+    
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
+.ListHeader{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.ListHeader > p {
+    font-size: 18px;
+    color: #B5AD83;
+    font-weight: bold;
+    margin-left: 30px;
+}
+.boxResultList{
+    border-top: 3px double #3F3624;
+    border-bottom: 3px double #3F3624;
+    margin-left: 25px;
 
+}
+.boxResultList > ul {
+    min-height: 540px;
+    max-height: 540px;
+    overflow-y: auto;
+    margin-top: 16px;
+    list-style: none;
+
+}
+.boxResultList > ul >li {
+    color: #f9e5bc;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.boxResultList > ul > li > img{
+    width: 125px;
+    margin-right: 20px;
+}
+.boxResultList > ul::-webkit-scrollbar {
+    width: 8px;
+}
+.boxResultList >ul::-webkit-scrollbar-thumb{
+    height: 30%;
+    background: #3F3624;
+    border-radius: 7px;
+}
+.boxResultList >ul::-webkit-scrollbar-track{
+    background: #1a1918;
+}
+.btn-close{
+    --bs-btn-close-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+}
     </style>
 <body>
     <header>
@@ -82,7 +131,7 @@
                 <ul>
                     <li style="    margin-right: 35px;
                     margin-left: 10px;">
-                        <a>명품상자깡</a>
+                        <a>상자깡</a>
                     </li>
                     <li>
                         <a>전적 검색</a>
@@ -92,44 +141,71 @@
         </div>
     </header>
 
-        <div class="row">
-            <div class="col-4">sds</div>
-            <div class="col-8 display-flex">
+        <div style="
+        display: flex;
+        flex-direction: row;
+    ">
+            <div class="col-5">
+                <div class="ListHeader"><p>목록</p></div>
+                <div class="boxResultList">
+                    <ul class="ResultUl" id="resultUl">
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="col-7 display-flex">
                 
                 <div style="
                 display: flex;
                 align-items: center;
                 flex-direction: column;
             "><p style="
-    color: white;
+    color: #B5AD83;
     font-size: 25px;
     font-weight: 600;
     position: absolute;
     top: 170px;
-">명품상자</p><img id="boxImage" src="../static/img/Masterwork_Chest.webp"></div>
+">명품상자</p><img id="boxImage" src="../static/img/Masterwork_Chest.webp" style="height: 650px;"></div>
                 <div style="
-                top: -130px;
+                top: -100px;
                 position: relative;
             ">
-                    <div style="margin-bottom: 20px;"><p style="
-                        font-size: 15px;
-                        color: white;
+                    <div style="margin-bottom: 40px;margin-top: -20px;"><p id="count" style="
+                        font-size: 18px;
+                        color: #d4d1c4;
                         font-weight: 600;
                         text-align: center;
                     ">횟수: 0</p></div>
-                    <div><button class="btn" id="openBox"><p>열기</p></button>
-                    <button class="btn"><p>리셋</p></button></div>
+                    <div><button class="btn" id="openBox"style="
+                        margin-right: 20px;
+                        width: 130px;
+                    "><p>열기</p></button>
+                    <button id="reset"class="btn"style="
+                    
+                    width: 130px;
+                "><p>리셋</p></button></div>
                 </div>
             </div>
         </div>
 <!-- Modal -->
 <div class="modal fade " id="testModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content"  >
+      <div class="modal-content"style="
+      background: none;
+  "  >
 
-          <button id="btn-close"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button id="btn-close"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="
+          align-self: end;
+      "></button>
         <div  class="modal-body" id="resultImage">
-        
+            <div>
+                <p id="boxResultText"style="
+                font-size: 28px;
+                font-weight: 600;
+                color: #B5AD83;
+            "></p>
+            </div>
         </div>
         <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -148,26 +224,52 @@
 
                 document.getElementById('openBox').addEventListener('click', function() {
                     getRandomSkins();
-                    for (let i = 0; i < randomSkins.length; i++) {
+                    
+                    var count = document.getElementById('count');
+                    count.innerText= '횟수: ' + boxCount;
+                    
                         var boxResultImage = document.getElementById('resultImage');
-                    boxResultImage.style.backgroundImage = "url("+ randomSkins[i].imageUrl + ")";
-                    }
+                        var boxResultText = document.getElementById('boxResultText');
+                        
+                        var tempImg = new Image();
+            tempImg.src = randomSkins[boxCount -1].imageUrl;
+            tempImg.onload = function() {
+                boxResultImage.style.backgroundImage = "url(" + randomSkins[boxCount -1].imageUrl + ")";
+                boxResultText.innerText = randomSkins[boxCount -1].name;
+            };
+                    
+                    
 
                     document.getElementById('boxImage').src = '../static/img/boxOpening.webp';
 
-                    console.log("skin: " + randomSkins[0].imageUrl);
       setTimeout(function() {
         var myModal = new bootstrap.Modal(document.getElementById('testModal'));
         myModal.show();
       }, 1900); 
 
-      document.getElementById('btn-close').addEventListener('click',function(){
-        document.location.reload;
-      });
     });
 
+    
+    
+    document.getElementById('btn-close').addEventListener('click',function(){
+      
+      document.getElementById('boxImage').src = '../static/img/Masterwork_Chest.webp';
+                      //결과목록에 추가
+                      var ul = document.getElementById('resultUl');
 
+             
+var Img = new Image();
+Img.src =  randomSkins[boxCount -1].tiles;
+Img.onload = function() {
+ul.insertAdjacentHTML('beforeend', '<li><img src="' + randomSkins[boxCount -1].tiles + '">' + randomSkins[boxCount -1].name+ '</li>');
+};
+    });
+    
+    document.getElementById('reset').addEventListener('click', function() {
+        document.location.reload();
 
+    });
+    
 
 // 롤 api
 var urlAPI = "https://ddragon.leagueoflegends.com/cdn/14.10.1/data/ko_KR/champion.json";
@@ -217,12 +319,16 @@ var urlAPI = "https://ddragon.leagueoflegends.com/cdn/14.10.1/data/ko_KR/champio
 
                     // 각 스킨 이미지 URL 생성 및 출력
                     skins.forEach(skin => {
-                        const skinImageUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_${skin.num}.jpg`;
-                       //console.log(`Skin name: ${skin.name}, Skin image URL: ${skinImageUrl}`);
+                        const skinImageUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/centered/${championId}_${skin.num}.jpg`;
+                        const skinTilesImageUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion/tiles/${championId}_${skin.num}.jpg`;
+                        
+                        if(skin.num != 0){
                         allSkins.push({
                             name: skin.name,
-                            imageUrl: skinImageUrl
+                            imageUrl: skinImageUrl,
+                            tiles: skinTilesImageUrl
                         });
+                    }
                     });
                 },
                 error: function (request, status, error) {
@@ -242,11 +348,13 @@ var urlAPI = "https://ddragon.leagueoflegends.com/cdn/14.10.1/data/ko_KR/champio
 
                 boxCount++
                 
+
                 console.log("count: " + boxCount);
                 console.log("skin: " + allSkins[randomIndex].name);
             }
                 
         }
+
         
     </script>
 </body>
