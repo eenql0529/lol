@@ -64,7 +64,7 @@
     font-weight: 600;
     margin: 0;
 }
-.modal-body{
+#resultImage{
     height: 500px;
     background-position: center;
     background-repeat: no-repeat;
@@ -77,12 +77,17 @@
 .ListHeader{
     margin-top: 25px;
     margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .ListHeader > p {
     font-size: 18px;
     color: #B5AD83;
     font-weight: bold;
     margin-left: 30px;
+    margin-bottom: 0;
 }
 .boxResultList{
     border-top: 3px double #3F3624;
@@ -122,6 +127,54 @@
 .btn-close{
     --bs-btn-close-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
 }
+
+#getAllSkin{
+
+    border: 1px solid;
+    height: 42px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #22201b;
+    color: #a4996f;
+}
+#allSkin {
+ overflow-y: scroll;
+ padding-left: 10px;
+}
+
+#allSkin > li > img {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+
+}#allSkin > li  {
+    color: #bfbbac;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+#skinModal-body{
+    display: flex;
+    min-height: 500px;
+    max-height: 500px;
+}
+
+#allSkin::-webkit-scrollbar {
+    width: 8px;
+}
+#allSkin::-webkit-scrollbar-thumb{
+    height: 30%;
+    background: #3F3624;
+    border-radius: 7px;
+}
+#allSkin::-webkit-scrollbar-track{
+    background: #1a1918;
+}
+
+.modal-header{
+    border-bottom: none;
+    padding-bottom: 5px;
+}
     </style>
 <body>
     <header>
@@ -146,7 +199,7 @@
         flex-direction: row;
     ">
             <div class="col-5">
-                <div class="ListHeader"><p>목록</p></div>
+                <div class="ListHeader"><p>목록</p><button id="getAllSkin">스킨 전체보기</button></div>
                 <div class="boxResultList">
                     <ul class="ResultUl" id="resultUl">
 
@@ -188,6 +241,7 @@
                 </div>
             </div>
         </div>
+
 <!-- Modal -->
 <div class="modal fade " id="testModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -207,10 +261,31 @@
             "></p>
             </div>
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!--스킨전체목록 Modal -->
+<div class="modal fade " id="skinModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content" style="background-color: #151515;">
+        <div class="modal-header">
+          <button id="btn-close"type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="
+          align-self: end;
+      "></button>
+         
+        </div>
+
+
+        <div  class="modal-body" id="skinModal-body" >
+
+            <ul id="allSkin" style="list-style: none;">
+                
+            </ul>
+            </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -268,6 +343,28 @@ ul.insertAdjacentHTML('beforeend', '<li><img src="' + randomSkins[boxCount -1].t
     document.getElementById('reset').addEventListener('click', function() {
         document.location.reload();
 
+    });
+    
+
+    document.getElementById('getAllSkin').addEventListener('click', function() {
+
+                      //결과목록에 추가
+                      var ul = document.getElementById('allSkin');
+
+             
+
+for (let i = 0; i < allSkins.length; i++) {
+
+    var Img = new Image();
+Img.src =  allSkins[i].tiles;
+Img.onload = function() {
+ul.insertAdjacentHTML('beforeend', '<li><img src="' + allSkins[i].tiles + '">' + allSkins[i].name+ '</li>');
+}
+
+
+            }
+        var skinModal = new bootstrap.Modal(document.getElementById('skinModal'));
+        skinModal.show();
     });
     
 
